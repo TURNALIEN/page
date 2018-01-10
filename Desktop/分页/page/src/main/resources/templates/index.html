@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <style>
+
+        a{
+            float: left;
+            text-decoration: none;
+            margin-right: 6px;
+        }
+        li{
+
+            list-style: none;
+            color: darkgreen;
+        }
+        .goto{
+            width: 18px;
+        }
+        input{
+            width: 26px;
+        }
+
+    </style>
+</head>
+<body>
+<form th:action="@{'/page'}">
+
+<table class="table">
+    <thead>
+    <tr>
+        <td>序号</td>
+        <td>用户名</td>
+        <td>密码</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="user:${list}">
+        <td th:text="${user.id}">{{data.order}}</td>
+        <td th:text="${user.username}">{{data.module}}</td>
+        <td th:text="${user.password}">{{data.message}}</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+    <div>
+        <a href="">当前页：<input type="text" th:value="${pageNo}" class="goto"/> </a>
+        <a href="">总条数：<input type="text" th:value="${count}" class="goto"/> </a>
+        <a href="" th:href="@{${'/page'}(pageNo=1)}">首页</a>
+        <a href="" th:href="@{${'/page'}(pageNO=${pageNo-1})}" th:if="${(pageNo-1) gt 0}">上一页</a>
+        <a href="" th:href="@{${'/page'}(pageNo=${pageNo+1})}" th:if="${pageNo lt total}">下一页</a>
+        <a href="" th:href="@{${'/page'}(pageNo=${total})}">末页</a>
+        <a href="">总页数：</a><input type="value" th:value="${total}" class="goto"/>
+        <p>跳到第<input type="text" name="pageNo" />页</p><input type="submit" value="GO" style="width: 36px;float: left"/><br/>
+        <p>每页显示<input type="text" name="pageSize"/>条</p><input type="submit" value="提交" style="width: 56px;float: left"/>
+    </div>
+</form>
+</body>
+</html>
